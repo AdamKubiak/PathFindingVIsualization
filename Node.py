@@ -89,6 +89,8 @@ def make_NodeGrid(rows,width):
             node = Node(i,j,gap,rows)
             grid[i].append(node)
 
+    return grid
+
 ############RYSOWANIE SIATKI W OKNIE
 
 def draw_gridLines(win,rows,width):
@@ -106,7 +108,7 @@ def draw(win,grid,rows,width):
 
     for row in grid:
         for node in row:
-            node.draw(win)
+            node.drawNode(win)
 
     draw_gridLines(win,rows,width)
     pygame.display.update()
@@ -117,7 +119,7 @@ def draw(win,grid,rows,width):
 def main(win,width):
     run = True
     clock = pygame.time.Clock()
-    ROWS = 60
+    ROWS = 16
     nodeGrid = make_NodeGrid(ROWS,width)
     while run:
         clock.tick(60)
