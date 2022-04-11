@@ -175,6 +175,14 @@ def main(win,width):
                 else:
                     node.reset()
 
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r:
+                    for row in nodeGrid:
+                        for node in row:
+                            node.reset()
+                            start = None
+                            end = None
+
                 
 
 
