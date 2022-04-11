@@ -25,20 +25,20 @@ class Node:
     def __init__(self,row,col,size,total_rows):
         self.row = row #pozycja numer wiersza
         self.col = col #pozycja numer kolumny
-        self.size = size #szeroko�� i wysoko�� bloczku
+        self.size = size #szerokosc i wysokosc bloczku
         self.x = row*size #pozycja na ekranie X
         self.y = col*size #pozycja na ekranie Y
-        self.color = WHITE #kolor bloku, je�li bia�y to nie by� on sprawdzany
-        self.total_rows = total_rows #��czna ilo�� wierszy w gridzie
+        self.color = WHITE #kolor bloku, jesli bialy to nie byl on sprawdzany
+        self.total_rows = total_rows #boczna ilosc wierszy w gridzie
 
-        self.neighbours = [] #lista s�siad�w z danego Node
+        self.neighbours = [] #lista sasiadow z danego Node
 
 
     def get_position(self):
         return self.row, self.col
-    #################LOGIKA KOLOR�W
+    #################LOGIKA KOLOROW
     def is_checked(self):
-        return self.color == RED #je�li dany Node by� sprawdzony to przypisano mu kolor RED
+        return self.color == RED #jesli dany Node byl sprawdzony to przypisano mu kolor RED
     
     def is_unchecked(self):
         return self.color == GREEN
@@ -73,7 +73,7 @@ class Node:
     def make_path(self):
         self.color = TURQUOISE
 
-    ########RYSOWANIE NOD�W NA OKNIE
+    ########RYSOWANIE NODOW NA OKNIE
     def drawNode(self,win):
         pygame.draw.rect(win, self.color,(self.x, self.y,self.size,self.size))
 
@@ -114,25 +114,72 @@ def draw(win,grid,rows,width):
 
     pygame.display.update()
 
+def get_mouse_position(pos,rows,width):
+    gap = width // rows
+    y,x = pos
+
+    row = y // gap
+    col = x // gap
+
+    return row,col
     
 
 
 def main(win,width):
     run = True
     clock = pygame.time.Clock()
-    ROWS = 80 #dzielenie szerowkosci okna przez ilosc wierszy musi dawac inta, bez tego dzieje sie smierdziawa
+    ROWS = 16 #dzielenie szerowkosci okna przez ilosc wierszy musi dawac inta, bez tego dzieje sie smierdziawa
     nodeGrid = make_NodeGrid(ROWS,width)
+    start = None
+    end = None
+
     while run:
         clock.tick(60)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+            
+            if pygame.mouse.get_pressed()[0]:
+                pos = pygame.mouse.get_pos()
+                row, col = get_mouse_position(pos,ROWS,width)
+                node = nodeGrid[row][col]
+
+                if not start:
+                    start = node
+                    start.make_start()
+                
+                elif not end:
+                    end = node
+                    end.make_end()
+                
+                else:
+                    node.make_wall()
+            
+            if pygame.mouse.get_pressed()[2]:
+                pos = pygame.mouse.get_pos()
+                row, col = get_mouse_position(pos,ROWS,width)
+                node = nodeGrid[row][col]
+
+                if start == node:
+                    start = None
+                    node.reset()
+                
+                elif end == node:
+                    end = None
+                    node.reset()
+
+                else:
+                    node.reset()
+
+                
+
 
         draw(win,nodeGrid,ROWS,width)
 
     pygame.quit()
                  
+if __name__ == '__main__':
 
-main(WIN,WIDTH)
+    main(WIN,WIDTH)
 
