@@ -1,6 +1,7 @@
 import pygame
 import math
 from queue import PriorityQueue
+import colorspy as color
 
 
 WIDTH,HEIGHT = 800,800
@@ -9,16 +10,16 @@ WIN = pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption('Path Finding')
 
 
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 255, 0)
-YELLOW = (255, 255, 0)
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-PURPLE = (128, 0, 128)
-ORANGE = (255, 165 ,0)
-GREY = (128, 128, 128)
-TURQUOISE = (64, 224, 208)
+RED = color.red
+GREEN = color.green
+BLUE = color.blue
+YELLOW = color.yellow
+WHITE = color.white
+BLACK = color.black
+PURPLE = color.purple
+ORANGE = color.orange
+GREY = color.gray
+TURQUOISE = color.turquoise
 
 
 class Node:
