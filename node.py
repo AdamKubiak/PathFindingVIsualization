@@ -146,15 +146,18 @@ def main(win,width):
                 node = nodeGrid[row][col]
 
                 if not start:
-                    start = node
-                    start.make_start()
+                    if node != end:
+                        start = node
+                        start.make_start()
                 
                 elif not end:
-                    end = node
-                    end.make_end()
+                    if node != start:
+                        end = node
+                        end.make_end()
                 
                 else:
-                    node.make_wall()
+                    if node != start and node != end:
+                        node.make_wall()
             
             if pygame.mouse.get_pressed()[2]:
                 pos = pygame.mouse.get_pos()
