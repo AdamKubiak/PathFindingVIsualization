@@ -196,7 +196,7 @@ def get_mouse_position(pos, rows,width):
 def main(win, width):
     run = True
     clock = pygame.time.Clock()
-    ROWS = 16  # dzielenie szerowkosci okna przez ilosc wierszy musi dawac inta, bez tego dzieje sie smierdziawa
+    ROWS = 80  # dzielenie szerowkosci okna przez ilosc wierszy musi dawac inta, bez tego dzieje sie smierdziawa
     nodeGrid = make_NodeGrid(ROWS, width)
     start = None
     end = None
@@ -260,7 +260,6 @@ def main(win, width):
                     for row in nodeGrid:
                         for node in row:
                             node.reset()
-                            nodeGrid = make_NodeGrid(ROWS, width)
                             start = None
                             end = None
 
